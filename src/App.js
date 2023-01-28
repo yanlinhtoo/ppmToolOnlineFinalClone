@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes,Route } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import MainNavigation from './components/layout/MainNavigation';
+import AddProjectForm from "./components/projects/AddProjectForm";
+import LandingPage from "./components/LandingPage";
+import LoginForm from "./components/user/LoginForm";
+import RegisterFrom from "./components/user/RegisterForm";
+import ProjectBoard from "./components/projects/ProjectBoard";
+import AddProjectTaskForm from "./components/project-task/AddProjectTaskForm";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MainNavigation />
+      <Routes>
+
+      <Route path='/'>
+
+        <Route index element={<LandingPage />} />
+        <Route path="login" element={<LoginForm />} />
+        <Route path="register" element={<RegisterFrom />} />
+        <Route path='dashboard' element={<Dashboard />} />
+
+        <Route path='project'>
+          <Route path='create' element={<AddProjectForm/>} />
+          <Route path='edit/:projectId' element={<AddProjectForm mode='edit'/>} />
+          <Route path='project-board/:projectId' element={<ProjectBoard/>} />
+        </Route>
+
+        <Route path="project-task">
+          <Route path="create/:projectId" element={<AddProjectTaskForm />}/>
+          <Route path="update/:projectId/:sequence" element={<AddProjectTaskForm mode = 'edit' />}/>
+        </Route>
+
+      </Route>
+
+      </Routes>
     </div>
   );
 }
